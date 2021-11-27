@@ -11,12 +11,14 @@ const dbURL = process.env.DB_URL || 'mongodb://127.0.0.1:27017'
 const authorize = require('./authorize')
 const cartrouter = require('./cart')
 const productrouter = require('./item')
+const wishlistrouter = require('./wishlist')
 
 
 app.use(express.json());
 app.use(cors())
 app.use('/cart',cartrouter)
 app.use('/item',productrouter)
+app.use('/wish',wishlistrouter)
 
 
 
