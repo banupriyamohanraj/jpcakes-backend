@@ -12,6 +12,7 @@ const authorize = require('./authorize')
 const cartrouter = require('./cart')
 const productrouter = require('./item')
 const wishlistrouter = require('./wishlist')
+const userAuthrouter = require('./userAuth')
 
 
 app.use(express.json());
@@ -19,8 +20,26 @@ app.use(cors())
 app.use('/cart',cartrouter)
 app.use('/item',productrouter)
 app.use('/wish',wishlistrouter)
+app.use('/auth',userAuthrouter)
 
-
+app.get("/",authorize, async (req, res) => {
+    try {
+        let client = await MongoClient.connect(dbURL);
+        let db = await client.db('user');
+        let data = await db.collection("logininfo").find().toArray();
+        if (data) {
+            console.log(data)
+            res.status(200).json(data)
+        } else {
+            res.status(404).json({ message: "no data found" })
+        }
+        client.close();
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Internal server error" })
+    }
+})
 
 app.get("/",authorize,async (req, res) => {
     try {
