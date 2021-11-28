@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
 const nodemailer = require('nodemailer')
 var jwt = require('jsonwebtoken')
 const crypto = require('crypto');
-
+NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 
 const dbURL = process.env.DB_URL || 'mongodb://127.0.0.1:27017'

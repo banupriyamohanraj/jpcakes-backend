@@ -41,23 +41,6 @@ app.get("/",authorize, async (req, res) => {
     }
 })
 
-app.get("/",authorize,async (req, res) => {
-    try {
-        let client = await MongoClient.connect(dbURL);
-        let db = await client.db('jp');
-        let data = await db.collection("cart").find().toArray();
-        if (data) {
-            console.log(data)
-            res.status(200).json(data)
-        } else {
-            res.status(404).json({ message: "no data found" })
-        }
-        client.close();
-    }
-    catch (error) {
-        console.log(error)
-        res.status(500).json({ message: "Internal server error" })
-    }
-})
+
 
 app.listen(port, () => console.log(`app runs with ${port}`))
