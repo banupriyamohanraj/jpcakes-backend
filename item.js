@@ -27,6 +27,32 @@ router.get("/itemlist",async(req,res)=>{
     }
 })
 
+router.get("/itemlist/:caketype/:flavour/:shape/:tier",async(req,res)=>{
+    try {
+        let client = await MongoClient.connect(dbURL);
+        let db = await client.db('jp');
+        let data = await db.collection("item").aggregate([
+            {
+            $match:{
+               $and:[ {caketype:req.params.caketype},{flavour:req.params.flavour},{shape:req.params.shape},{tier:req.params.tier}]
+
+
+
+        }
+    }
+]).toArray();
+        if (data.length >0) {
+            res.status('200').json({data});
+        } else {
+            res.status(404).json({ message: "no data found" })
+        }
+        client.close();
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Internal server error" })
+    }
+})
+
 router.post('/itemlist', async (req, res) => {
     try {
         let client = await MongoClient.connect(dbURL);
