@@ -13,6 +13,7 @@ const cartrouter = require('./cart')
 const productrouter = require('./item')
 const wishlistrouter = require('./wishlist')
 const userAuthrouter = require('./userAuth')
+const Userrouter = require('./user')
 
 
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use('/cart',cartrouter)
 app.use('/item',productrouter)
 app.use('/wish',wishlistrouter)
 app.use('/auth',userAuthrouter)
+app.use('/user',Userrouter)
 
 app.get("/",authorize, async (req, res) => {
     try {
