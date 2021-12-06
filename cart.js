@@ -91,6 +91,25 @@ router.delete('/delete/:id', async (req, res) => {
 
 })
 
+router.delete('/deleteall', async (req, res) => {
+    try {
+        let client = await MongoClient.connect(dbURL);
+        let db = await client.db('jp');
+        let data = await db.collection("cart").remove({})
+            if(data){
+                res.status(200).json({message:"item deleted",data})
+            }
+            else {
+                res.status(404).json({ message: "not found" })
+            }  
+            client.close();
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Internal server error" })
+    }
+
+})
+
 
 
 module.exports = router;
