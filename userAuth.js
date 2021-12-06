@@ -42,7 +42,7 @@ router.put("/passwordreset", async (req, res) => {
                 from: process.env.NODEMAILER_ACC,
                 to:  req.body.email,
                 subject: "Password Reset Link",
-                html: `<h4>To reset your password please click on this <a href="https://urlshortener-fe.netlify.app/resetpassword/${token}">link</a></h4>`
+                html: `<h4>To reset your password please click on this <a href="https://cakes-site.netlify.app/resetpassword/${token}">link</a></h4>`
             }
            
             transporter.sendMail(mailOptions, function (error, info) {
@@ -124,7 +124,7 @@ router.post("/register", async (req, res) => {
                 subject: "Email Confirmation",
                 html: `<h2>Hello</h2>
                 <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-                <a href="https://urlshortener-fe.netlify.app/confirm/${confirmationcode}"> Click here</a>`
+                <a href="https://cakes-site.netlify.app/confirm/${confirmationcode}"> Click here</a>`
             }
            
             transporter.sendMail(mailOptions, function (error, info) {
